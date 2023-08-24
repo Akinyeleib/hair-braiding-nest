@@ -1,4 +1,13 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 
-@Controller('products')
-export class ProductsController {}
+@Controller('api/v1/products')
+export class ProductsController {
+  @Get()
+  getAllUsers() {
+    return 'get all products';
+  }
+  @Post()
+  createUser() {
+    return 'products created';
+  }
+}
