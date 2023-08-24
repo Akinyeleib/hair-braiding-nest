@@ -7,19 +7,22 @@ import {
   ParseIntPipe,
 } from '@nestjs/common';
 import { CreateUserDTO } from 'src/dtos/create-user.dto';
+import { UsersService } from './users.service';
+import { User } from 'src/entities/user.entity';
 
 @Controller('api/v1/users')
 export class UsersController {
+  constructor(private userService: UsersService) {}
   @Get()
   getAllUsers() {
-    return 'get all users';
+    return this.userService.getAllUsers();
   }
   @Get(':id')
   getOneUser(@Param('id', ParseIntPipe) userID: number) {
-    return 'get one user: ' + userID;
+    return this.userService.getOneUser(userID);
   }
   @Post()
   createUser(@Body() createUserDto: CreateUserDTO) {
-    return 'one user created';
+    return this.userService.createuser(createUserDto);
   }
 }
