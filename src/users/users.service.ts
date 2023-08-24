@@ -17,6 +17,9 @@ export class UsersService {
   getOneUser(id: number) {
     return this.userRepository.findOne({ where: { id } });
   }
+  deleteOneUser(id: number) {
+    return this.userRepository.delete(id);
+  }
   createuser(createUserDto: CreateUserDTO) {
     const user = new User();
     const {

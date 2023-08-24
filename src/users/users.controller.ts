@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
 import { CreateUserDTO } from 'src/dtos/create-user.dto';
 import { UsersService } from './users.service';
@@ -20,6 +21,10 @@ export class UsersController {
   @Get(':id')
   getOneUser(@Param('id', ParseIntPipe) userID: number) {
     return this.userService.getOneUser(userID);
+  }
+  @Delete(':id')
+  deleteOneUser(@Param('id', ParseIntPipe) userID: number) {
+    return this.userService.deleteOneUser(userID);
   }
   @Post()
   createUser(@Body() createUserDto: CreateUserDTO) {
