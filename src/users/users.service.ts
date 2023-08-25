@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDTO } from 'src/dtos/create-user.dto';
+import { UpdateUserDTO } from 'src/dtos/update-user.dto';
 import { User } from 'src/entities/user.entity';
-import { UserRepository } from 'src/repositories/user.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class UsersService {
   deleteOneUser(id: number) {
     return this.userRepository.delete(id);
   }
-  createuser(createUserDto: CreateUserDTO) {
+  createUser(createUserDto: CreateUserDTO) {
     const user = new User();
     const {
       username,
@@ -47,5 +47,12 @@ export class UsersService {
     } else {
       return this.userRepository.save(user);
     }
+  }
+  updateUser(userID: number, updateUserDTO: UpdateUserDTO) {
+    return {
+      message: 'Feature coming soon...',
+      userID,
+      userDetails: updateUserDTO,
+    };
   }
 }
