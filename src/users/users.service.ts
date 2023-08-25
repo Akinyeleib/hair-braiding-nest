@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDTO } from 'src/dtos/create-user.dto';
 import { UpdateUserDTO } from 'src/dtos/update-user.dto';
 import { User } from 'src/entities/user.entity';
+import { hashPassword } from 'src/utils/bcrypt';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class UsersService {
   deleteOneUser(id: number) {
     return this.userRepository.delete(id);
   }
-  createUser(createUserDto: CreateUserDTO) {
+  async createUser(createUserDto: CreateUserDTO) {
     const user = new User();
     const {
       username,
@@ -41,7 +42,7 @@ export class UsersService {
     user.role = role;
     user.address = address;
     user.gender = gender;
-    user.password = createUserDto.password1;
+    user.password = await hashPassword(createUserDto.password1);
     if (createUserDto.password1 != createUserDto.password2) {
       throw new BadRequestException('Passwords mismatch');
     } else {
